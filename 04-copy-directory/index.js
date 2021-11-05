@@ -9,9 +9,11 @@ const copyFolder = async (folderName) => {
     await mkdir(copyPath, { recursive: true});
     
     try {
-        const files = await readdir(initPath);
+        const files = await readdir(initPath, {withFileTypes: true});
         for (const file of files) {
-            await copyFile(path.join(initPath, file), path.join(copyPath, file));
+            if (file.isFile()) {
+                copyFile(path.join(initPath, file.name), path.join(copyPath, file.name));
+            }
         }
     } catch (error) {
         console.log(error.message);
@@ -19,4 +21,3 @@ const copyFolder = async (folderName) => {
 }
 
 copyFolder('files');
-
