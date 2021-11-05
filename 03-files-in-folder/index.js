@@ -5,6 +5,7 @@ async function showAllFiles(folderName) {
     let dirPath = path.join(__dirname, folderName);
     try {
         const files = await readdir(dirPath, {withFileTypes: true});
+        console.log('Files in secret-folder:');
         for (const file of files) {
             if (file.isFile()) {
                 let filePath = path.join(__dirname, folderName, file.name);
@@ -17,5 +18,4 @@ async function showAllFiles(folderName) {
     }
 }
 
-console.log('Files in secret-folder:');
 showAllFiles('secret-folder');
